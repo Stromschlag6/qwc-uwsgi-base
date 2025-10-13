@@ -1,6 +1,6 @@
 # WSGI service environment
 
-FROM alpine:3.20
+FROM alpine:3.22
 
 RUN apk add --no-cache --update shadow python3 uwsgi uwsgi-python3
 COPY --from=ghcr.io/astral-sh/uv:alpine3.20 /usr/local/bin/uv /usr/local/bin/uvx /bin/
