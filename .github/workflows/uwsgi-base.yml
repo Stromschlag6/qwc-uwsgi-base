@@ -1,6 +1,10 @@
 name: Publish qwc-uwsgi-base docker image
 
-on: [push, workflow_dispatch]
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0/5 * * * *" # every Tuesday on 6:00 UTC
 
 jobs:
 
@@ -18,6 +22,7 @@ jobs:
             echo "alpine_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
             echo "ubuntu_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
           else
+            echo "TIMESTAMP=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
             echo "alpine_tag=latest" >>$GITHUB_OUTPUT
             echo "ubuntu_tag=latest" >>$GITHUB_OUTPUT
           fi
@@ -39,12 +44,12 @@ jobs:
           workdir: alpine
           platforms: linux/arm64,linux/amd64
 
-      - name: Build and publish Ubuntu docker image
-        uses: elgohr/Publish-Docker-Github-Action@v4
-        with:
-          name: sourcepole/qwc-uwsgi-base
-          username: ${{ secrets.DOCKER_HUB_USER }}
-          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          tags: "ubuntu-${{ steps.get_tag.outputs.ubuntu_tag }}"
-          workdir: ubuntu
-          platforms: linux/arm64,linux/amd64
+      # - name: Build and publish Ubuntu docker image
+      #   uses: elgohr/Publish-Docker-Github-Action@v4
+      #   with:
+      #     name: sourcepole/qwc-uwsgi-base
+      #     username: ${{ secrets.DOCKER_HUB_USER }}
+      #     password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      #     tags: "ubuntu-${{ steps.get_tag.outputs.ubuntu_tag }}"
+      #     workdir: ubuntu
+      #     platforms: linux/arm64,linux/amd64
