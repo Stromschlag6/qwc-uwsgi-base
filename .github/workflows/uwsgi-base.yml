@@ -21,11 +21,10 @@ jobs:
             echo "alpine_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
             echo "ubuntu_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
           else
-            timestamp=$(date +"v%Y.%m.%d")
+            echo timestamp=$(date +"v%Y.%m.%d")
             echo "alpine_tag=$timestamp" >>$GITHUB_OUTPUT
             echo "ubuntu_tag=$timestamp" >>$GITHUB_OUTPUT
           fi
-          echo "REF=$GITHUB_REF"
 
       - name: Print tags
         id: print_tag
