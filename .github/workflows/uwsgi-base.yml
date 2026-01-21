@@ -26,11 +26,11 @@ jobs:
             echo "ubuntu_tag=$timestamp" >>$GITHUB_OUTPUT
           fi
 
-      # - name: Print tags
-      #   id: print_tag
-      #   run: |
-      #     echo "Alpine tag: ${{ steps.get_tag.outputs.alpine_tag }}"
-      #     echo "Ubuntu tag: ${{ steps.get_tag.outputs.ubuntu_tag }}"
+      - name: Print tags
+        id: print_tag
+        run: |
+          echo "Alpine tag: ${{ steps.get_tag.outputs.alpine_tag }}"
+          echo "Ubuntu tag: ${{ steps.get_tag.outputs.ubuntu_tag }}"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
