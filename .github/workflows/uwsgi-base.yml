@@ -26,18 +26,18 @@ jobs:
             echo "ubuntu_tag=$timestamp" >>$GITHUB_OUTPUT
           fi
 
-      - name: Print tags
-        id: print_tag
-        run: |
-          echo "Alpine tag: ${{ steps.get_tag.outputs.alpine_tag }}"
-          echo "Ubuntu tag: ${{ steps.get_tag.outputs.ubuntu_tag }}"
+      # - name: Print tags
+      #   id: print_tag
+      #   run: |
+      #     echo "Alpine tag: ${{ steps.get_tag.outputs.alpine_tag }}"
+      #     echo "Ubuntu tag: ${{ steps.get_tag.outputs.ubuntu_tag }}"
 
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
 
-      # - name: Set up Docker Buildx
-      #   id: buildx
-      #   uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
 
       # - name: Build and publish Alpine docker image
       #   uses: elgohr/Publish-Docker-Github-Action@v4
