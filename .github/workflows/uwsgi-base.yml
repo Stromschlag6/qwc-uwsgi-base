@@ -29,7 +29,7 @@ jobs:
       - name: Print tags
         id: print_tag
         run: |
-          echo "Alpine tag: ${{ steps.get_tag.outputs.alpine_tag }}"
+          echo "Alpine tag: ${{ steps.get_tag.outputs.alpine_tag }} test"
           echo "Ubuntu tag: ${{ steps.get_tag.outputs.ubuntu_tag }}"
 
       - name: Set up QEMU
