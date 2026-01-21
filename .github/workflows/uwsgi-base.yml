@@ -21,15 +21,16 @@ jobs:
             echo "alpine_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
             echo "ubuntu_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
           else
-            echo "timestamp=$(date +"v%Y.%m.%d")"
+            timestamp=$(date +"v%Y.%m.%d")
             echo "alpine_tag=$timestamp" >>$GITHUB_OUTPUT
             echo "ubuntu_tag=$timestamp" >>$GITHUB_OUTPUT
           fi
+          echo "REF=$GITHUB_REF"
 
       - name: Print tags
         id: print_tag
         run: |
-          echo "Alpine tag: ${{ steps.get_tag.outputs.alpine_tag }} test"
+          echo "Alpine tag: ${{ steps.get_tag.outputs.alpine_tag }}"
           echo "Ubuntu tag: ${{ steps.get_tag.outputs.ubuntu_tag }}"
 
       - name: Set up QEMU
