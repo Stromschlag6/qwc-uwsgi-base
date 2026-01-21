@@ -22,17 +22,17 @@ jobs:
             echo "alpine_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
             echo "ubuntu_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
           else
-            echo "TIMESTAMP=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
-            echo "alpine_tag=latest" >>$GITHUB_OUTPUT
-            echo "ubuntu_tag=latest" >>$GITHUB_OUTPUT
+            echo "timestamp=$(date +"vY.m.d")"
+            echo "alpine_tag=$timestamp" >>$GITHUB_OUTPUT
+            echo "ubuntu_tag=$timestamp" >>$GITHUB_OUTPUT
           fi
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+      # - name: Set up QEMU
+      #   uses: docker/setup-qemu-action@v2
 
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v2
+      # - name: Set up Docker Buildx
+      #   id: buildx
+      #   uses: docker/setup-buildx-action@v2
 
       # - name: Build and publish Alpine docker image
       #   uses: elgohr/Publish-Docker-Github-Action@v4
