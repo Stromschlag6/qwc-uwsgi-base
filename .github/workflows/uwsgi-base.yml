@@ -19,25 +19,39 @@ jobs:
         run: |
           SHOULD_RUN=true
           tag=$(date +"v%Y.%m.%d")
-          if [[ "$GITHUB_EVENT_NAME" == "push" && "$GITHUB_REF" == refs/tags/* ]]; then
-            echo "alpine_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
-            echo "ubuntu_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
-          elif [[ "$GITHUB_EVENT_NAME" == "schedule" ]]; then
-            echo "git tag --list "$tag""
-            if git tag --list "$tag" | grep -q .; then
-              echo "Tag $tag already exists – skipping."
-            else
-              git tag "$tag"
-              git push origin "$tag"
-              echo "Tag $tag created and pushed."
-              echo "alpine_tag=$tag" >>$GITHUB_OUTPUT
-              echo "ubuntu_tag=$tag" >>$GITHUB_OUTPUT
-            fi
-          else
-            SHOULD_RUN=false
-          fi
-          echo "run_next=$SHOULD_RUN" >> "$GITHUB_OUTPUT"
+          echo "DEBUG: tag=$tag"
+          echo "DEBUG: Lokale Tags vor Fetch:"
+          git tag
+          echo "DEBUG: Remote Tags:"
+          git ls-remote --tags origin
+          # Test: funktioniert 'git tag --list'?
+          echo "DEBUG: git tag --list '$tag'"
+          git tag --list "$tag"
 
+          if git tag --list "$tag" | grep -q .; then
+            echo "DEBUG: Tag $tag existiert lokal"
+          else
+            echo "DEBUG: Tag $tag existiert NICHT lokal"
+          fi
+          # if [[ "$GITHUB_EVENT_NAME" == "push" && "$GITHUB_REF" == refs/tags/* ]]; then
+          #   echo "alpine_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
+          #   echo "ubuntu_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
+          # elif [[ "$GITHUB_EVENT_NAME" == "schedule" ]]; then
+          #   echo "$(git tag --list "$tag")"
+          #   if git tag --list "$tag" | grep -q .; then
+          #     echo "Tag $tag already exists – skipping."
+          #   else
+          #     git tag "$tag"
+          #     git push origin "$tag"
+          #     echo "Tag $tag created and pushed."
+          #     echo "alpine_tag=$tag" >>$GITHUB_OUTPUT
+          #     echo "ubuntu_tag=$tag" >>$GITHUB_OUTPUT
+          #   fi
+          # else
+          #   SHOULD_RUN=false
+          # fi
+          # echo "run_next=$SHOULD_RUN" >> "$GITHUB_OUTPUT"
+          
       - name: Print tags
         id: print_tag
         run: |
