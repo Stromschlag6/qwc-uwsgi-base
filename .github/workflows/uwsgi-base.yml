@@ -23,9 +23,9 @@ jobs:
             echo "alpine_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
             echo "ubuntu_tag=${GITHUB_REF:10}" >>$GITHUB_OUTPUT
           elif [[ "$GITHUB_EVENT_NAME" == "schedule" ]]; then
+            echo "git tag --list "$tag""
             if git tag --list "$tag" | grep -q .; then
               echo "Tag $tag already exists – skipping."
-              exit 0
             else
               git tag "$tag"
               git push origin "$tag"
