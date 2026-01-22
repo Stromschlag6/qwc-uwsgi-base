@@ -35,8 +35,8 @@ jobs:
             fi
           else
             SHOULD_RUN=false
-            echo "run_next=$SHOULD_RUN" >> "$GITHUB_OUTPUT"
           fi
+          echo "run_next=$SHOULD_RUN" >> "$GITHUB_OUTPUT"
 
       - name: Print tags
         id: print_tag
