@@ -25,6 +25,7 @@ jobs:
           elif [[ "$GITHUB_EVENT_NAME" == "schedule" ]]; then
             if git ls-remote --tags origin "$tag" | grep -q .; then
               echo "Tag $tag already exists – skipping."
+              SHOULD_RUN=false
             else
               git tag "$tag"
               git push origin "$tag"
